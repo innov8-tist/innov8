@@ -128,9 +128,29 @@ def Ass(query:Bank_History):
     return {"result":res.content}
 
 
-
-
 #simple query transactions
+def fetch_google_finance_news():
+    url = "https://news.google.com/rss/search?q=stock+market+finance"
+    feed = feedparser.parse(url)
+    return [{"title": entry.title, "link": entry.link} for entry in feed.entries]
+import feedparser
+from langchain.tools import Tool
+@app.get("/finance")
+def Financal():
+    finance_news_tool = Tool(
+        name="GoogleFinanceNewsFetcher",
+        func=lambda _: fetch_google_finance_news(),
+        description="Fetches live stock market news from Google Finance."
+    )
+
+    news = finance_news_tool.run("")
+    datas=""
+    for article in news[:20]:
+        datas+=article['title']
+        datas+=","
+    prompt=f"You should Summurize and  the all news  News:{datas}"
+    result=llm.invoke(prompt)
+    return {"result":result.content}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
