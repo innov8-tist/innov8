@@ -12,6 +12,10 @@ import Assistant from "./pages/assistant.tsx";
 
 const router = createBrowserRouter([
     {
+        path: "/",
+        element: <Landingpage />,
+    },
+    {
         path: "/dashboard",
         element: (
             <Layout>
@@ -23,8 +27,8 @@ const router = createBrowserRouter([
         path: "/dashboard/assistant",
         element: (
             <Layout>
-                <> 
-                <Assistant/>
+                <>
+                    <Assistant />
                 </>
             </Layout>
         )
@@ -41,8 +45,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
         <QueryClientProvider client={queryClient}>
             <RouterProvider router={router} />
-        <Toaster />
-    </QueryClientProvider>
+            <Toaster />
+        </QueryClientProvider>
     </React.StrictMode >
 );
 

@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Skeleton } from "@/components/ui/skeleton"
+import { pyServer } from "@/axios/axios.config"
 
 export default function Assistant() {
     const [messages, setMessages] = useState<Message[]>([])
@@ -33,38 +34,42 @@ export default function Assistant() {
     }, [])
 
 
-    const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-    }
 
-    const handleSendMessage = async (content: string) => {
-        if (!content.trim()) return
+const handleSendMessage = async (content: string) => {
+    if (!content.trim()) return;
 
-        // Add user message to the chat
-        const userMessage: Message = {
-            id: Date.now().toString(),
-            content,
-            sender: "user",
+    const userMessage: Message = {
+        id: new Date().getTime().toString(),
+        content,
+        sender: "user",
+        timestamp: new Date(),
+    };
+
+    setMessages((prev) => [...structuredClone(prev), userMessage]);
+    setInputValue("");
+    setIsResponding(true);
+
+    try {
+        const res = await pyServer.post("/normalass", { query: content });
+
+        const assistantMessage: Message = {
+            id: new Date().getTime().toString(),
+            content: res.data.result || "No response received.",
+            sender: "assistant",
             timestamp: new Date(),
-        }
-        setMessages((prev) => [...prev, userMessage])
-        setInputValue("")
-        setIsResponding(true)
+        };
 
-        try {
-            // Get assistant response
-            const assistantMessage = await sendMessage(content)
-            setMessages((prev) => [...prev, assistantMessage])
-        } catch (error) {
-            console.error("Error sending message:", error)
-        } finally {
-            setIsResponding(false)
-        }
+        setMessages((prev) => [...structuredClone(prev), assistantMessage]);
+    } catch (error) {
+        console.error("Error sending message:", error);
+    } finally {
+        setIsResponding(false);
     }
+};
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        handleSendMessage(inputValue)
+        await handleSendMessage(inputValue)
     }
 
     const formatTime = (date: Date) => {
@@ -166,7 +171,7 @@ export default function Assistant() {
                                     {suggestionChips.map((chip) => (
                                         <button
                                             key={chip.id}
-                                            onClick={() => handleSendMessage(chip.text)}
+                                            onClick={async () => await handleSendMessage(chip.text)}
                                             disabled={isResponding}
                                             className="bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm px-3 py-1.5 rounded-full transition-colors"
                                         >
