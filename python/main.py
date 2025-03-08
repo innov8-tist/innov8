@@ -152,5 +152,74 @@ def Financal():
     result=llm.invoke(prompt)
     return {"result":result.content}
 
+
+
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain.tools import Tool
+from langchain.agents import AgentType, initialize_agent
+from langchain.memory import ConversationBufferMemory
+import yfinance as yf
+from dotenv import load_dotenv
+import os
+
+# Load environment variables
+load_dotenv()
+
+
+# Function to get stock information
+def get_stock_info(symbol: str):
+    try:
+        stock = yf.Ticker(symbol)
+        info = stock.info
+        return f"Company: {info['longName']}\nCurrent Price: ${info['currentPrice']:.2f}\nMarket Cap: ${info['marketCap']:,}"
+    except Exception as e:
+        return f"Unable to fetch information for {symbol}. Error: {str(e)}"
+
+# Function to calculate potential profit/loss
+def calculate_profit_loss(buy_price: float, current_price: float, shares: int):
+    pl = (current_price - buy_price) * shares
+    return f"Potential {'Profit' if pl >= 0 else 'Loss'}: ${abs(pl):.2f}"
+
+# Define Tools
+stock_info_tool = Tool(
+    name="Stock Information Tool",
+    func=get_stock_info,
+    description="Fetch stock information given a stock symbol.",
+    return_direct=True
+)
+
+calculation_tool = Tool(
+    name="Stock Calculation Tool",
+    func=calculate_profit_loss,
+    description="Calculate profit or loss given buy price, current price, and number of shares.",
+    return_direct=True
+)
+
+# Define Agents
+memory = ConversationBufferMemory(memory_key="chat_history")
+
+agent = initialize_agent(
+    tools=[stock_info_tool, calculation_tool],
+    llm=llm,  # Fixed: Use the correct LLM
+    agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,  # Fixed: Better agent type for Gemini
+    verbose=True,
+    memory=memory,
+)
+
+# Run the assistant
+def run_stock_assistant(data):
+    print("Welcome to the Multi-Agent Stock Market Assistant!")
+    response = agent.run(data)
+    print("Assistant:", response)
+    return response
+
+class Agent_FaQ(BaseModel):
+    query:str
+
+@app.post("/Agent")
+def AgentCall(query:Agent_FaQ):
+    result = run_stock_assistant(query.query)
+    return {"result":result}
+
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
