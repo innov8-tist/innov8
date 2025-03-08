@@ -40,3 +40,22 @@
 .read-the-docs {
   color: #888;
 }
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  display: flex;
+  width: max-content;
+  animation: scroll 10s linear infinite;
+}
+
+.pause-animation {
+  animation-play-state: paused;
+}
