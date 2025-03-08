@@ -47,7 +47,7 @@ export function Navbar() {
     return (
         <nav className="border-b border-gray-200 bg-white px-4 py-2 flex justify-between items-center">
             <Link to="/" className="text-lg font-semibold text-gray-900">
-                NeuroPay
+               I❤️ Finance 
             </Link>
             {user ? (
                 <DropdownMenu>
