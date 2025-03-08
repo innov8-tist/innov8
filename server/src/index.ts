@@ -41,6 +41,7 @@ app.use(passport.session());
 import './passport/googleStrategy';
 import './passport/githubStrategy';
 import { morganMiddleware } from './middlewares/morgan.middleware';
+import { seedData } from './database/seed';
 
 
 //Routes
@@ -56,10 +57,11 @@ app.get('/ping', (req, res) => {
 app.use(zodMiddleWare);
 app.use(morganMiddleware)
 
-app.listen(PORT, () => {
+app.listen(PORT, async() => {
     client
         .connect()
         .then(() => console.log('Database connected successfully'))
         .catch(err => console.log('Database connection failed', err));
+    await seedData();
     console.log('Application Running in port' + PORT);
 });
