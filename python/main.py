@@ -152,74 +152,113 @@ def Financal():
     result=llm.invoke(prompt)
     return {"result":result.content}
 
+#--------------------------------------------Agent----------------------------------------------------------
 
 
-from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain.tools import Tool
-from langchain.agents import AgentType, initialize_agent
-from langchain.memory import ConversationBufferMemory
+
+from langchain.agents import initialize_agent, AgentType
+from langchain.agents import Tool
+from langchain.tools import tool
 import yfinance as yf
-from dotenv import load_dotenv
-import os
+import requests
 
-# Load environment variables
-load_dotenv()
+@tool
+def get_stock_price(symbol: str):
+    """Fetch the current stock price of a given symbol."""
+    stock = yf.Ticker(symbol)
+    price = stock.history(period="1d")["Close"].iloc[-1]
+    return f"The current price of {symbol} is ${price:.2f}"
+
+@tool
+def analyze_stock_sentiment(symbol: str):
+    """Analyze recent financial news sentiment for a given stock."""
+    url = f"https://newsapi.org/v2/everything?q={symbol}&apiKey=e8cbffe58ad24c70bfbf4c80de4da0aa"
+    response = requests.get(url).json()
+    articles = response.get("articles", [])
+    sentiments = [article["title"] for article in articles[:5]]
+    return f"Latest headlines for {symbol}: {sentiments}"
+
+# Technical indicator tool (example: simple moving average)
+@tool
+def get_technical_analysis(symbol: str):
+    """Provides basic technical indicators like SMA and RSI."""
+    stock = yf.Ticker(symbol)
+    data = stock.history(period="1mo")["Close"]
+    sma = data.rolling(window=10).mean().iloc[-1]
+    return f"10-day SMA for {symbol} is ${sma:.2f}"
+
+# Recommendation tool
+@tool
+def get_stock_recommendation(symbol: str):
+    """Provides stock recommendation based on basic analysis."""
+    price = float(get_stock_price(symbol).split("$")[-1])
+    sma = float(get_technical_analysis(symbol).split("$")[-1])
+
+    if price > sma:
+        return f"{symbol} is currently above the 10-day SMA. Consider holding or buying."
+    else:
+        return f"{symbol} is below the 10-day SMA. It might be a sell signal."
 
 
-# Function to get stock information
-def get_stock_info(symbol: str):
-    try:
-        stock = yf.Ticker(symbol)
-        info = stock.info
-        return f"Company: {info['longName']}\nCurrent Price: ${info['currentPrice']:.2f}\nMarket Cap: ${info['marketCap']:,}"
-    except Exception as e:
-        return f"Unable to fetch information for {symbol}. Error: {str(e)}"
-
-# Function to calculate potential profit/loss
-def calculate_profit_loss(buy_price: float, current_price: float, shares: int):
-    pl = (current_price - buy_price) * shares
-    return f"Potential {'Profit' if pl >= 0 else 'Loss'}: ${abs(pl):.2f}"
-
-# Define Tools
-stock_info_tool = Tool(
-    name="Stock Information Tool",
-    func=get_stock_info,
-    description="Fetch stock information given a stock symbol.",
-    return_direct=True
-)
-
-calculation_tool = Tool(
-    name="Stock Calculation Tool",
-    func=calculate_profit_loss,
-    description="Calculate profit or loss given buy price, current price, and number of shares.",
-    return_direct=True
-)
-
-# Define Agents
-memory = ConversationBufferMemory(memory_key="chat_history")
+tools = [
+    Tool(
+        name="StockPriceTool",
+        func=get_stock_price,
+        description="Fetch the current stock price of a given symbol."
+    ),
+    Tool(
+        name="SentimentAnalysisTool",
+        func=analyze_stock_sentiment,
+        description="Analyze recent financial news sentiment for a given stock."
+    ),
+    Tool(
+        name="TechnicalAnalysisTool",
+        func=get_technical_analysis,
+        description="Provides technical indicators such as moving averages."
+    ),
+    Tool(
+        name="RecommendationTool",
+        func=get_stock_recommendation,
+        description="Provides stock buy/sell recommendations based on analysis."
+    )
+]
 
 agent = initialize_agent(
-    tools=[stock_info_tool, calculation_tool],
-    llm=llm,  # Fixed: Use the correct LLM
-    agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,  # Fixed: Better agent type for Gemini
+    tools=tools,
+    llm=llm,
+    agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
     verbose=True,
-    memory=memory,
+    return_intermediate_steps=True
 )
 
-# Run the assistant
-def run_stock_assistant(data):
-    print("Welcome to the Multi-Agent Stock Market Assistant!")
-    response = agent.run(data)
-    print("Assistant:", response)
-    return response
-
-class Agent_FaQ(BaseModel):
+class Agent_Class(BaseModel):
     query:str
 
 @app.post("/Agent")
-def AgentCall(query:Agent_FaQ):
-    result = run_stock_assistant(query.query)
-    return {"result":result}
+def Call_Agent(query:Agent_Class):
+    arr=[]
+    response = agent.invoke(query)
+    output=response['output']
+    intermediate=response['intermediate_steps']
+    for agents in intermediate:
+        arr.append(agents[0].tool)
+        arr.append(agents[0].tool_input)
+        arr.append(agents[0].log)
+        arr.append("-----------------------------------------------------")
+    
+    return {"output":output,"steps":arr}
+    
+    
+    
+
+
+
+
+
+
+
+
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=7000)
