@@ -1,6 +1,6 @@
 'use client';
 
-import { BotIcon, CircleArrowOutDownLeftIcon, LogOut, LogsIcon, PlayCircleIcon, SettingsIcon, TvIcon } from 'lucide-react';
+import { BotIcon, CircleArrowOutDownLeftIcon, GitGraphIcon, LogOut, LogsIcon, ParkingMeterIcon, PlayCircleIcon, SettingsIcon, TvIcon } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 interface NavigationItem {
@@ -17,9 +17,19 @@ const navigation: NavigationItem[] = [
     icon: <DashboardIcon />,
   },
   {
-    name: 'Financial Assistant',
-    href: '/dashboard/assistant',
+    name: 'Financial Advisor',
+    href: '/dashboard/advisor',
     icon: <BotIcon />,
+  },
+  {
+    name: 'Personal Assitant',
+    href: '/dashboard/personal-assistant',
+    icon: <BotIcon />,
+  },
+  {
+    name: 'Stock Analysis',
+    href: '/dashboard/stock-analysis',
+    icon: <ParkingMeterIcon />,
   },
   {
     name: 'Payment',

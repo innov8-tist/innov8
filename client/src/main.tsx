@@ -9,6 +9,7 @@ import { Toaster } from "@/components/ui/toaster";
 import Dashboard from "./pages/dashboard.tsx";
 import Layout from "./components/Layout.tsx";
 import Assistant from "./pages/assistant.tsx";
+import PersonalAssistant from "./pages/PersonalAssistant.tsx";
 
 const router = createBrowserRouter([
     {
@@ -24,11 +25,21 @@ const router = createBrowserRouter([
         )
     },
     {
-        path: "/dashboard/assistant",
+        path: "/dashboard/advisor",
         element: (
             <Layout>
                 <>
                     <Assistant />
+                </>
+            </Layout>
+        )
+    },
+    {
+        path: "/dashboard/personal-assistant",
+        element: (
+            <Layout>
+                <>
+                    <PersonalAssistant />
                 </>
             </Layout>
         )

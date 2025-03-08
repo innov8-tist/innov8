@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { useState, useEffect, useRef } from "react"
-import { fetchMessages,  suggestionChips, type Message } from "@/lib/data/assistant-data"
+import { fetchMessages, personalAssistantSuggestions, type Message } from "@/lib/data/assistant-data"
 import { Avatar } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -12,7 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { pyServer } from "@/axios/axios.config"
 import { Navbar } from "@/components/Navbar"
 
-export default function Assistant() {
+export default function PersonalAssistant() {
     const [messages, setMessages] = useState<Message[]>([])
     const [inputValue, setInputValue] = useState("")
     const [isLoading, setIsLoading] = useState(true)
@@ -36,37 +36,38 @@ export default function Assistant() {
 
 
 
-const handleSendMessage = async (content: string) => {
-    if (!content.trim()) return;
+    const handleSendMessage = async (content: string) => {
+        if (!content.trim()) return;
 
-    const userMessage: Message = {
-        id: new Date().getTime().toString(),
-        content,
-        sender: "user",
-        timestamp: new Date(),
-    };
-
-    setMessages((prev) => [...structuredClone(prev), userMessage]);
-    setInputValue("");
-    setIsResponding(true);
-
-    try {
-        const res = await pyServer.post("/normalass", { query: content });
-
-        const assistantMessage: Message = {
+        const userMessage: Message = {
             id: new Date().getTime().toString(),
-            content: res.data.result || "No response received.",
-            sender: "assistant",
+            content,
+            sender: "user",
             timestamp: new Date(),
         };
 
-        setMessages((prev) => [...structuredClone(prev), assistantMessage]);
-    } catch (error) {
-        console.error("Error sending message:", error);
-    } finally {
-        setIsResponding(false);
-    }
-};
+        setMessages((prev) => [...structuredClone(prev), userMessage]);
+        setInputValue("");
+        setIsResponding(true);
+
+        try {
+            console.log(content)
+            const res = await pyServer.post("/rag_finance", { query: content });
+
+            const assistantMessage: Message = {
+                id: new Date().getTime().toString(),
+                content: res.data.result || "No response received.",
+                sender: "assistant",
+                timestamp: new Date(),
+            };
+
+            setMessages((prev) => [...structuredClone(prev), assistantMessage]);
+        } catch (error) {
+            console.error("Error sending message:", error);
+        } finally {
+            setIsResponding(false);
+        }
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -86,19 +87,21 @@ const handleSendMessage = async (content: string) => {
             <div className="flex-1 flex flex-col overflow-hidden">
                 <Navbar />
                 <div className="flex items-center h-16 border-b px-4 md:hidden">
-                    <div className="ml-4 font-semibold">Financial Advisor</div>
+                    <div className="ml-4 font-semibold">Personal Financial Assistant</div>
                 </div>
                 <div className="flex-1 overflow-auto p-4 md:p-6">
                     <div className="max-w-8xl mx-auto">
-                        <h1 className="text-2xl font-semibold mb-6 hidden md:block">Financial Advisor</h1>
+                        <h1 className="text-2xl font-semibold mb-6 hidden md:block">Personal Financial Assistant</h1>
                         <Card className="p-0 overflow-hidden">
                             <div className="bg-[#0f1729] text-white p-4">
                                 <div className="flex items-center">
                                     <Avatar className="h-8 w-8 mr-2 bg-blue-500">
                                     </Avatar>
                                     <div>
-                                        <h2 className="font-medium">Financial Advisor</h2>
-                                        <p className="text-xs text-gray-300">Powered by AI to help with your financial needs</p>
+                                        <h2 className="font-medium">Personal Financial Assistant</h2>
+                                        <p className="text-xs text-gray-300">Powered by AI to help with your financial decsions based on your financial
+                                            informations
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -170,7 +173,7 @@ const handleSendMessage = async (content: string) => {
 
                             <div className="p-4 border-t">
                                 <div className="mb-4 flex flex-wrap gap-2">
-                                    {suggestionChips.map((chip) => (
+                                    {personalAssistantSuggestions.map((chip) => (
                                         <button
                                             key={chip.id}
                                             onClick={async () => await handleSendMessage(chip.text)}
@@ -205,5 +208,6 @@ const handleSendMessage = async (content: string) => {
         </div>
     )
 }
+
 
 
