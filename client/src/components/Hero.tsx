@@ -1,6 +1,8 @@
 
 import React, { useEffect, useRef } from "react";
 import Button from "./Button";
+import { Link } from "react-router-dom";
+
 
 const Hero: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -60,9 +62,11 @@ const Hero: React.FC = () => {
           </p>
           
           <div className="flex flex-wrap gap-4 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+            <Link to="/dashboard">
             <Button variant="primary" size="lg">
               Get Started for Free
             </Button>
+            </Link>
             <Button variant="outline" size="lg">
               Watch Demo
             </Button>

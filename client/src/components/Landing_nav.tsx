@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
 import Button from "@/components/Button";
+import { Link } from "react-router-dom";
 
 const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -104,13 +105,16 @@ const Navbar: React.FC = () => {
                 {link.name}
               </a>
             ))}
+            <Link to="/dashboard">
             <Button
               variant="primary"
               className="mt-2 w-full"
               onClick={() => setMobileMenuOpen(false)}
             >
+
               Get Started
             </Button>
+            </Link>
           </div>
         </div>
       )}
