@@ -48,6 +48,16 @@ const navigation: NavigationItem[] = [
     badge: 'PRO',
   },
   {
+    name: 'Loan Status And Credit Score',
+    href: '/loanstatus',
+    icon: <SettingsIcon/>,
+  },
+  {
+    name: 'Fraud Detection',
+    href: '/frauddetection',
+    icon: <SettingsIcon/>,
+  },
+  {
     name: 'Settings',
     href: '/settings',
     icon: <SettingsIcon/>,
