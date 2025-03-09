@@ -73,13 +73,31 @@ _Replace VIDEO_ID with your YouTube video ID or provide an alternative demo link
 ## Additional Resources
 
 ### Project Timeline
-_Brief overview of your development process and milestones_
+1️. Planning & Research – Define core features, gather fintech data sources, and design the website architecture.
+
+2. UI/UX Design – Develop a clean, user-friendly dashboard and chatbot interface.
+
+3️. Backend & AI Integration – Implement financial data processing, chatbot (RAG model), and AI-powered analytics.
+
+4️. Frontend Development – Build the interactive dashboard, chatbot UI, and data visualization components.
+
+5️. Testing & Refinement – Conduct functional testing, refine AI responses, and optimize performance.
+
+6️. Finalization & Deployment – Integrate all features, generate sample financial reports, and deploy the prototype.
 
 ### Challenges Faced
-_Discuss technical challenges and how you overcame them_
+1️. Integrating Real-Time Financial Data – Handling live stock market updates and financial news required selecting reliable APIs and optimizing data fetching to ensure accuracy and speed.
+
+2️. Optimizing AI Chatbot Responses – Fine-tuning the RAG-based chatbot to provide relevant financial insights while keeping responses concise and accurate. We improved this by refining retrieval sources and response generation.
+
+3️. Ensuring a Smooth User Experience – Balancing a feature-rich dashboard with a clean UI required multiple iterations of UI/UX design and frontend optimizations for seamless interaction.
 
 ### Future Enhancements
-_Share your vision for future development_
+1️. Advanced AI Insights – Enhance the chatbot with deeper financial analysis, personalized investment advice, and predictive analytics.
+
+2️. Expanded Financial Services – Integrate budgeting tools, expense tracking, and loan comparison features to provide a more comprehensive fintech experience.
+
+3️. User Customization & Personalization – Allow users to customize their dashboard, set financial goals, and receive tailored recommendations based on spending patterns and market trends.
 
 ### References (if any)
 - [Reference 1](link)
@@ -91,7 +109,7 @@ _Share your vision for future development_
 - [ ] Completed all sections of this README
 - [ ] Added project demo video
 - [ ] Provided live project link
-- [ ] Ensured all team members are listed
+- [x] Ensured all team members are listed
 - [ ] Included setup instructions
 - [ ] Submitted final code to repository
 
