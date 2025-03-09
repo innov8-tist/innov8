@@ -32,29 +32,13 @@ const navigation: NavigationItem[] = [
     icon: <ParkingMeterIcon />,
   },
   {
-    name: 'Payment',
-    href: '/payment',
-    icon: <PlayCircleIcon />,
-  },
-  {
-    name: 'Card',
-    href: '/card',
-    icon: <CircleArrowOutDownLeftIcon />,
-  },
-  {
-    name: 'Insights',
-    href: '/insights',
-    icon: <TvIcon />,
-    badge: 'PRO',
-  },
-  {
     name: 'Loan Status And Credit Score',
-    href: '/loanstatus',
+    href: '/dashboard/loanstatus',
     icon: <SettingsIcon/>,
   },
   {
     name: 'Fraud Detection',
-    href: '/frauddetection',
+    href: '/dashboard/frauddetection',
     icon: <SettingsIcon/>,
   },
   {

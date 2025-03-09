@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import MainLayout from "@/components/MainLayout";
-import { ArrowRight, Check, X, ShieldAlert, AlertTriangle } from "lucide-react";
+import { ArrowRight, Check, ShieldAlert, AlertTriangle } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
+import { pyServer } from "@/axios/axios.config";
 
 interface TransactionData {
   Amount: number;
@@ -25,45 +26,12 @@ const defaultTransactionData: TransactionData = {
   Is_High_Risk_Country: 0
 };
 
-const predictFraudTransaction = (data: TransactionData): boolean => {
-  // Simple fraud detection logic
-  // This is a simplified version - real fraud detection would use more complex algorithms
-  
-  let riskScore = 0;
-  
-  // Higher amount increases risk
-  if (data.Amount > 1000) riskScore += 25;
-  else if (data.Amount > 500) riskScore += 15;
-  else if (data.Amount > 200) riskScore += 5;
-  
-  // Unusual time of day (assuming Time is seconds since midnight)
-  // Late night transactions (between 1am and 5am) are higher risk
-  const hourOfDay = Math.floor(data.Time / 3600) % 24;
-  if (hourOfDay >= 1 && hourOfDay < 5) riskScore += 20;
-  
-  // High number of failed transactions increases risk
-  if (data.Num_Failed_Transactions > 5) riskScore += 30;
-  else if (data.Num_Failed_Transactions > 2) riskScore += 15;
-  
-  // Foreign transactions may have higher risk
-  if (data.Is_Foreign_Transaction === 1) riskScore += 10;
-  
-  // High risk country significantly increases risk
-  if (data.Is_High_Risk_Country === 1) riskScore += 30;
-  
-  // Transaction frequency - unusual patterns increase risk
-  if (data.Avg_Transactions_Per_Day < 1 && data.Amount > 100) riskScore += 15;
-  else if (data.Avg_Transactions_Per_Day > 10) riskScore += 10;
-  
-  // Consider fraud if risk score exceeds threshold
-  return riskScore >= 50;
-};
-
 const FraudTransaction = () => {
   const { toast } = useToast();
   const [transactionData, setTransactionData] = useState<TransactionData>(defaultTransactionData);
   const [showPrediction, setShowPrediction] = useState<boolean>(false);
-  const isFraudulent = predictFraudTransaction(transactionData);
+  const [isFraudulent, setIsFraudulent] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleInputChange = (field: keyof TransactionData, value: number) => {
     setTransactionData({
@@ -87,14 +55,31 @@ const FraudTransaction = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Transaction Analyzed",
-      description: "Your transaction has been analyzed for potential fraud.",
-    });
-    setShowPrediction(true);
-    console.log("Transaction data:", transactionData);
+    setIsLoading(true);
+    
+    try {
+      const resp = await pyServer.post('/fraud-detection', transactionData);
+      console.log(resp.data);
+      setIsFraudulent(resp.data.resp.prediction);
+      
+      toast({
+        title: "Transaction Analyzed",
+        description: "Your transaction has been analyzed for potential fraud.",
+      });
+      
+      setShowPrediction(true);
+    } catch (error) {
+      console.error("Error analyzing transaction:", error);
+      toast({
+        title: "Analysis Failed",
+        description: "There was an error analyzing your transaction. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -102,7 +87,7 @@ const FraudTransaction = () => {
       <div className="container p-6 max-w-6xl animate-fade-up">
         <h1 className="text-2xl font-bold mb-6">Fraud Transaction Detection</h1>
         
-        <div className="glass-card p-6 animate-fade-in max-w-4xl mx-auto">
+        <div className="glass-card p-6 animate-fade-in max-w-4xl mx-auto bg-white rounded-lg shadow-md border border-gray-100">
           <div className="flex items-center gap-2 mb-6">
             <ShieldAlert className="h-6 w-6 text-blue-600" />
             <h2 className="text-xl font-semibold">Transaction Analysis</h2>
@@ -185,15 +170,16 @@ const FraudTransaction = () => {
             
             <Button 
               type="submit" 
-              className="w-full mt-6 bg-finance-blue hover:bg-blue-600 transition-colors group"
+              className="w-full mt-6 bg-blue-600 hover:bg-blue-700 transition-colors group"
+              disabled={isLoading}
             >
-              Analyze Transaction
-              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              {isLoading ? "Analyzing..." : "Analyze Transaction"}
+              {!isLoading && <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />}
             </Button>
           </form>
           
           {showPrediction && (
-            <div className={mt-8 p-6 rounded-lg border animate-fade-up ${isFraudulent ? 'bg-red-50 border-red-200' : 'bg-green-50 border-green-200'}}>
+            <div className={`mt-8 p-6 rounded-lg border animate-fade-up ${isFraudulent ? 'bg-red-50 border-red-200' : 'bg-green-50 border-green-200'}`}>
               <h3 className="text-lg font-semibold mb-2">
                 Fraud Detection Result
               </h3>
@@ -225,22 +211,22 @@ const FraudTransaction = () => {
               <div className="mt-6 space-y-4">
                 <h4 className="text-sm font-medium">Key Risk Factors:</h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div className={p-3 rounded-md ${transactionData.Amount > 200 ? 'bg-yellow-50' : 'bg-gray-50'}}>
+                  <div className={`p-3 rounded-md ${transactionData.Amount > 200 ? 'bg-yellow-50' : 'bg-gray-50'}`}>
                     <div className="text-xs text-gray-500">Transaction Amount</div>
                     <div className="font-medium">${transactionData.Amount.toFixed(2)}</div>
                   </div>
                   
-                  <div className={p-3 rounded-md ${transactionData.Num_Failed_Transactions > 2 ? 'bg-yellow-50' : 'bg-gray-50'}}>
+                  <div className={`p-3 rounded-md ${transactionData.Num_Failed_Transactions > 2 ? 'bg-yellow-50' : 'bg-gray-50'}`}>
                     <div className="text-xs text-gray-500">Failed Transactions</div>
                     <div className="font-medium">{transactionData.Num_Failed_Transactions}</div>
                   </div>
                   
-                  <div className={p-3 rounded-md ${transactionData.Is_Foreign_Transaction === 1 ? 'bg-yellow-50' : 'bg-gray-50'}}>
+                  <div className={`p-3 rounded-md ${transactionData.Is_Foreign_Transaction === 1 ? 'bg-yellow-50' : 'bg-gray-50'}`}>
                     <div className="text-xs text-gray-500">Foreign Transaction</div>
                     <div className="font-medium">{transactionData.Is_Foreign_Transaction === 1 ? 'Yes' : 'No'}</div>
                   </div>
                   
-                  <div className={p-3 rounded-md ${transactionData.Is_High_Risk_Country === 1 ? 'bg-red-50' : 'bg-gray-50'}}>
+                  <div className={`p-3 rounded-md ${transactionData.Is_High_Risk_Country === 1 ? 'bg-red-50' : 'bg-gray-50'}`}>
                     <div className="text-xs text-gray-500">High Risk Country</div>
                     <div className="font-medium">{transactionData.Is_High_Risk_Country === 1 ? 'Yes' : 'No'}</div>
                   </div>
@@ -260,3 +246,4 @@ const FraudTransaction = () => {
 };
 
 export default FraudTransaction;
+

@@ -385,10 +385,13 @@ async def predict(data: TransactionData):
     # Make the prediction
     prediction = model.predict(input_data)
     value = "Fraud Transaction" if prediction == 1 else "Not Fraud"
-        
+    print(value)
+
     # Return the prediction
+
     return {
-        "prediction": value
+        "prediction": value == "Not Fraud"
     }
+
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=7000)

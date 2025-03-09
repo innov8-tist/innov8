@@ -13,6 +13,8 @@ import Assistant from "./pages/assistant.tsx";
 import PersonalAssistant from "./pages/PersonalAssistant.tsx";
 import StockAnalyzer from "./pages/stock-analysis.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import FraudTransaction from "./components/dashboard/FraudTransaction.tsx";
+import FinancialAssistant from "./components/dashboard/FinancialAssistant.tsx";
 
 const router = createBrowserRouter([
     {
@@ -37,6 +39,16 @@ const router = createBrowserRouter([
         )
     },
     {
+        path: "/dashboard/loanstatus",
+        element: (
+            <Layout>
+                <>
+                <FinancialAssistant/>
+                </>
+            </Layout>
+        )
+    },
+    {
         path: "/dashboard/personal-assistant",
         element: (
             <Layout>
@@ -52,6 +64,15 @@ const router = createBrowserRouter([
             <Layout>
                 <>
                     <StockAnalyzer />
+                </>
+            </Layout>
+        )
+    }, {
+        path: "/dashboard/frauddetection",
+        element: (
+            <Layout>
+                <>
+                    <FraudTransaction />
                 </>
             </Layout>
         )
