@@ -104,7 +104,7 @@ const getCreditScoreCategory = (score: number): {category: string; color: string
   return { category: "Very Poor", color: "text-red-600" };
 };
 
-const LoanPrediction = () => {
+const FinancialAssistant = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState<FormData>(defaultFormData);
   const [showPrediction, setShowPrediction] = useState<boolean>(false);
@@ -493,4 +493,4 @@ const LoanPrediction = () => {
   );
 };
 
-export default LoanPrediction;
+export default FinancialAssistant;

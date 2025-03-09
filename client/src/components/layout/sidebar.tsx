@@ -31,7 +31,6 @@ const navigation: NavigationItem[] = [
     href: '/dashboard/stock-analyzer',
     icon: <ParkingMeterIcon />,
   },
-<<<<<<< HEAD
   {
     name: 'Payment',
     href: '/payment',
@@ -63,8 +62,6 @@ const navigation: NavigationItem[] = [
     href: '/settings',
     icon: <SettingsIcon/>,
   },
-=======
->>>>>>> 1de7c62ff6fc4fcfd7a957a798ee987aa3eb5de7
 ];
 
 export function Sidebar() {
