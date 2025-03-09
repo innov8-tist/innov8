@@ -6,8 +6,7 @@ The official template repository for Define 3.0
 
 
 
-# < Project Name >
-I LOVE FINANCE 
+# < I LOVE FINANCE  >
 ### Team Information
 - **Team Name**: <INNOV8> 
 - **Track**: < FINTECH >
