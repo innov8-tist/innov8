@@ -1,4 +1,3 @@
-
 import React from "react";
 import AnimatedCard from "./AnimatedCard";
 import { CreditCard, LineChart, BarChart } from "lucide-react";
@@ -60,7 +59,7 @@ const Features: React.FC = () => {
   ];
 
   return (
-    <section id="features" className="py-24 px-6 relative overflow-hidden bg-finance-gray/30">
+    <section id="features" className="py-24 px-6 relative overflow-hidden bg-finance-light-bg">
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-0 left-1/3 w-[500px] h-[500px] bg-finance-blue/5 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-finance-accent/5 rounded-full blur-3xl"></div>

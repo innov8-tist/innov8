@@ -104,11 +104,6 @@ const StockAnalyzer = () => {
         </div>
       )}
 
-      {results.length === 0 && (
-        <div className="mt-10 text-center text-finance-neutral animate-pulse-soft">
-          <p>Enter a stock ticker to see analysis results</p>
-        </div>
-      )}
     </div>
   );
 };

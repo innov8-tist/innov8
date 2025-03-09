@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from "react";
 import Navbar from "@/components/Landing_nav";
 import Hero from "@/components/Hero";
@@ -12,10 +11,8 @@ const Index: React.FC = () => {
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
-    // Set up intersection observer for reveal animations
     observerRef.current = setupIntersectionObserver();
 
-    // Set up smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (this: HTMLAnchorElement, e) {
         e.preventDefault();
