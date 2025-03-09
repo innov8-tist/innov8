@@ -10,6 +10,7 @@ import Dashboard from "./pages/dashboard.tsx";
 import Layout from "./components/Layout.tsx";
 import Assistant from "./pages/assistant.tsx";
 import PersonalAssistant from "./pages/PersonalAssistant.tsx";
+import StockAnalyzer from "./pages/stock-analysis.tsx";
 
 const router = createBrowserRouter([
     {
@@ -40,6 +41,16 @@ const router = createBrowserRouter([
             <Layout>
                 <>
                     <PersonalAssistant />
+                </>
+            </Layout>
+        )
+    },
+    {
+        path: "/dashboard/stock-analyzer",
+        element: (
+            <Layout>
+                <>
+                    <StockAnalyzer />
                 </>
             </Layout>
         )

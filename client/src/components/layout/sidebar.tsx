@@ -28,7 +28,7 @@ const navigation: NavigationItem[] = [
   },
   {
     name: 'Stock Analysis',
-    href: '/dashboard/stock-analysis',
+    href: '/dashboard/stock-analyzer',
     icon: <ParkingMeterIcon />,
   },
   {
