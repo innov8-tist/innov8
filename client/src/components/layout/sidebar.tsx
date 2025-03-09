@@ -1,6 +1,6 @@
 'use client';
 
-import { BotIcon, CircleArrowOutDownLeftIcon, LogOut, LogsIcon, PlayCircleIcon, SettingsIcon, TvIcon } from 'lucide-react';
+import { BotIcon, CircleArrowOutDownLeftIcon, CircleDollarSignIcon, DollarSign, DollarSignIcon, GitGraphIcon, LogOut, LogsIcon, ParkingMeterIcon, PlayCircleIcon, SettingsIcon, TvIcon } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 interface NavigationItem {
@@ -17,9 +17,19 @@ const navigation: NavigationItem[] = [
     icon: <DashboardIcon />,
   },
   {
-    name: 'Financial Assistant',
-    href: '/dashboard/assistant',
+    name: 'Financial Advisor',
+    href: '/dashboard/advisor',
     icon: <BotIcon />,
+  },
+  {
+    name: 'Personal Assitant',
+    href: '/dashboard/personal-assistant',
+    icon: <BotIcon />,
+  },
+  {
+    name: 'Stock Analysis',
+    href: '/dashboard/stock-analyzer',
+    icon: <ParkingMeterIcon />,
   },
   {
     name: 'Payment',
@@ -38,6 +48,16 @@ const navigation: NavigationItem[] = [
     badge: 'PRO',
   },
   {
+    name: 'Loan Status And Credit Score',
+    href: '/loanstatus',
+    icon: <SettingsIcon/>,
+  },
+  {
+    name: 'Fraud Detection',
+    href: '/frauddetection',
+    icon: <SettingsIcon/>,
+  },
+  {
     name: 'Settings',
     href: '/settings',
     icon: <SettingsIcon/>,
@@ -51,8 +71,7 @@ export function Sidebar() {
     <div className="hidden md:flex md:w-64 md:flex-col h-screen bg-[#0f1729] text-white">
       <div className="flex flex-col flex-1 overflow-y-auto">
         <div className="flex items-center h-16 flex-shrink-0 px-4">
-          <LogsIcon />
-          <span className="ml-2 text-xl font-semibold">I Love Finance</span>
+          <span className="ml-2 text-xl font-semibold">I ❤️ Finance</span>
         </div>
         <nav className="flex-1 px-4 pb-4 space-y-2">
           {navigation.map((item) => (

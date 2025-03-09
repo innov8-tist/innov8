@@ -3,13 +3,14 @@
 import type React from "react"
 
 import { useState, useEffect, useRef } from "react"
-import { fetchMessages, sendMessage, suggestionChips, type Message } from "@/lib/data/assistant-data"
+import { fetchMessages,  suggestionChips, type Message } from "@/lib/data/assistant-data"
 import { Avatar } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Skeleton } from "@/components/ui/skeleton"
 import { pyServer } from "@/axios/axios.config"
+import { Navbar } from "@/components/Navbar"
 
 export default function Assistant() {
     const [messages, setMessages] = useState<Message[]>([])
@@ -83,19 +84,19 @@ const handleSendMessage = async (content: string) => {
     return (
         <div className="flex h-screen bg-background">
             <div className="flex-1 flex flex-col overflow-hidden">
+                <Navbar />
                 <div className="flex items-center h-16 border-b px-4 md:hidden">
-                    <div className="ml-4 font-semibold">Financial Assistant</div>
+                    <div className="ml-4 font-semibold">Financial Advisor</div>
                 </div>
                 <div className="flex-1 overflow-auto p-4 md:p-6">
                     <div className="max-w-8xl mx-auto">
-                        <h1 className="text-2xl font-semibold mb-6 hidden md:block">Financial Assistant</h1>
                         <Card className="p-0 overflow-hidden">
                             <div className="bg-[#0f1729] text-white p-4">
                                 <div className="flex items-center">
                                     <Avatar className="h-8 w-8 mr-2 bg-blue-500">
                                     </Avatar>
                                     <div>
-                                        <h2 className="font-medium">Financial Assistant</h2>
+                                        <h2 className="font-medium">Financial Advisor</h2>
                                         <p className="text-xs text-gray-300">Powered by AI to help with your financial needs</p>
                                     </div>
                                 </div>

@@ -37,7 +37,7 @@ export async function githubLoginCBController(req: Request, res: Response, next:
 export async function authSuccessController(req: Request, res: Response) {
   console.log('Auth Success Printing User Data', req.user);
   res.cookie('x-auth-cookie', req.user?.id);
-  res.redirect(clienturl);
+  res.redirect(clienturl+'/dashboard');
 }
 
 export async function getUserDetailsController(req: Request, res: Response) {

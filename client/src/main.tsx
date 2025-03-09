@@ -7,8 +7,12 @@ import LoginPage from "./pages/login.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import Dashboard from "./pages/dashboard.tsx";
+import Dashboard2 from "./components/Dashboard.tsx";
 import Layout from "./components/Layout.tsx";
 import Assistant from "./pages/assistant.tsx";
+import PersonalAssistant from "./pages/PersonalAssistant.tsx";
+import StockAnalyzer from "./pages/stock-analysis.tsx";
+import NotFound from "./pages/NotFound.tsx";
 
 const router = createBrowserRouter([
     {
@@ -17,14 +21,13 @@ const router = createBrowserRouter([
     },
     {
         path: "/dashboard",
-        element: (
+        element:
             <Layout>
-                <Dashboard />,
+                < Dashboard2 />,
             </Layout>
-        )
     },
     {
-        path: "/dashboard/assistant",
+        path: "/dashboard/advisor",
         element: (
             <Layout>
                 <>
@@ -34,9 +37,33 @@ const router = createBrowserRouter([
         )
     },
     {
+        path: "/dashboard/personal-assistant",
+        element: (
+            <Layout>
+                <>
+                    <PersonalAssistant />
+                </>
+            </Layout>
+        )
+    },
+    {
+        path: "/dashboard/stock-analyzer",
+        element: (
+            <Layout>
+                <>
+                    <StockAnalyzer />
+                </>
+            </Layout>
+        )
+    },
+    {
         path: "/login",
         element: <LoginPage />,
     },
+    {
+        path: "*",
+        element: <NotFound />
+    }
 ]);
 
 const queryClient = new QueryClient();
