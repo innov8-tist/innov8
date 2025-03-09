@@ -31,6 +31,37 @@ const navigation: NavigationItem[] = [
     href: '/dashboard/stock-analyzer',
     icon: <ParkingMeterIcon />,
   },
+  {
+    name: 'Payment',
+    href: '/payment',
+    icon: <PlayCircleIcon />,
+  },
+  {
+    name: 'Card',
+    href: '/card',
+    icon: <CircleArrowOutDownLeftIcon />,
+  },
+  {
+    name: 'Insights',
+    href: '/insights',
+    icon: <TvIcon />,
+    badge: 'PRO',
+  },
+  {
+    name: 'Loan Status And Credit Score',
+    href: '/loanstatus',
+    icon: <SettingsIcon/>,
+  },
+  {
+    name: 'Fraud Detection',
+    href: '/frauddetection',
+    icon: <SettingsIcon/>,
+  },
+  {
+    name: 'Settings',
+    href: '/settings',
+    icon: <SettingsIcon/>,
+  },
 ];
 
 export function Sidebar() {
