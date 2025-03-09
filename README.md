@@ -7,30 +7,29 @@ The official template repository for Define 3.0
 
 
 # < Project Name >
- Cover Image  If applicable
-
+I LOVE FINANCE 
 ### Team Information
-- **Team Name**: <Team Name> 
-- **Track**: < Track >
+- **Team Name**: <INNOV8> 
+- **Track**: < FINTECH >
 
 ### Team Members
-| Name | Role | GitHub | LinkedIn |
-|------|------|--------|----------|
-| [Full Name] | [Role] | [@username](https://github.com/username) | [Profile](https://linkedin.com/in/username) |
-| [Full Name] | [Role] | [@username](https://github.com/username) | [Profile](https://linkedin.com/in/username) |
-| [Full Name] | [Role] | [@username](https://github.com/username) | [Profile](https://linkedin.com/in/username) |
-| [Full Name] | [Role] | [@username](https://github.com/username) | [Profile](https://linkedin.com/in/username) |
+| Name          | Role               | GitHub                                           | LinkedIn                                                      | 
+|---------------|--------------------|--------------------------------------------------|---------------------------------------------------------------|
+| [Naveen Ravi] | [frontend/backend] | [@Naveenravi07](https://github.com/Naveenravi07) | [Profile](https://www.linkedin.com/in/naveen-ravi-97b158229/) |
+| [Manu Madhu]  | [AI/ML]            | [@Manumanu1234](https://github.com/Manumanu1234) | [Profile](https://www.linkedin.com/in/manu-madhu-086506281/)  |
+| [Sirin Simon] | [UI/UX Desing]     | [@Sirinsimon](https://github.com/Sirinsimon)     | [Profile](https://www.linkedin.com/in/sirin-simon-813291293/) |
+| [Suraj P A]   | [frontend/python]  | [@SurajPa05](https://github.com/SurajPa05)       | [Profile](https://www.linkedin.com/in/suraj-p-a-115144302/)   |
 
 ## Project Details
 
 ### Overview
-_A concise summary of your project (2-3 sentences)_
+_Our fintech website offers real-time financial insights, AI-powered chat, stock market analysis, loan status detection, credit score prediction, and financial news summarization. Users also receive a monthly AI-generated PDF report with insights and recommendations_
 
 ### Problem Statement
-_Describe the problem your project aims to solve_
+_Many individuals and businesses face challenges in understanding financial data, tracking market trends, and accessing reliable customer support for fintech-related queries. Financial information is often complex, scattered, and difficult to interpret, leading to poor decision-making. Additionally, users may struggle to find quick and accurate answers to common financial questions._
 
 ### Solution
-_Explain your approach to solving the problem_
+_We are developing a fintech website with a clean, user-friendly dashboard that presents key financial data in an accessible format. The platform features an AI-powered chatbot that provides financial insights and customer support by answering common fintech-related queries. Additionally, the website integrates real-time financial data, stock market analysis, credit score prediction, and loan status detection to enhance user decision-making. Users also receive AI-generated financial reports with insights and recommendations._
 
 ### Demo
 [![Project Demo](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)
@@ -42,24 +41,25 @@ _Replace VIDEO_ID with your YouTube video ID or provide an alternative demo link
 ## Technical Implementation
 
 ### Technologies Used
-- **Frontend**: [Technologies]
-- **Backend**: [Technologies]
-- **Database**: [Technologies]
-- **APIs**: [Technologies]
-- **DevOps**: [Technologies]
-- **Other Tools**: [Technologies]
+- **Frontend**: [Vite.js]
+- **Backend**: [nodejs/python]
+- **Database**: [postgres]
+- **APIs**: [gemeni/groq/newsAPI]
+- **DevOps**: []
+- **Other Tools**: []
 
 ### Key Features
-- Feature 1
-- Feature 2
-- Feature 3
+- AI-Powered Financial Chatbot – Provides financial insights, answers FAQs, and assists users with fintech-related queries using RAG-based AI
+- Real-Time Financial Dashboard – Displays key financial data, stock market trends, credit score predictions, and loan status detection in a user-friendly interface.
+- AI-Generated Financial Reports – Delivers monthly PDF reports with personalized financial insights, summaries, and AI-driven recommendations.
 
 ## Setup Instructions
 
+
 ### Prerequisites
-- Requirement 1
-- Requirement 2
-- Requirement 3
+- langchain package
+- fast api
+- node / react
 
 ### Installation 
 ```bash
