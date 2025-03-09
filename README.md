@@ -28,8 +28,8 @@ _Many individuals and businesses struggle with understanding financial data, tra
 _We are developing a fintech website with a clean, user-friendly dashboard that presents key financial data in an accessible format. The platform features an AI-powered chatbot that provides financial insights and customer support. Additionally, the website integrates real-time financial data, stock market analysis, credit score prediction, and loan status detection to enhance user decision-making. Users also receive AI-generated financial reports with insights and recommendations._
 
 ### Demo
-[![Project Demo](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)
-_Replace VIDEO_ID with your YouTube video ID or provide an alternative demo link_
+[![Project Demo](https://img.youtube.com/vi/Bl2zzF2MAoA/0.jpg)](https://www.youtube.com/watch?v=Bl2zzF2MAoA)
+
 
 ### Live Project
 [Project Name](https://your-project-url.com)
