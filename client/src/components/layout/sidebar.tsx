@@ -1,6 +1,6 @@
 'use client';
 
-import { BotIcon, CircleArrowOutDownLeftIcon, CircleDollarSignIcon, DollarSign, DollarSignIcon, GitGraphIcon, LogOut, LogsIcon, ParkingMeterIcon, PlayCircleIcon, SettingsIcon, TvIcon } from 'lucide-react';
+import { BotIcon, CircleArrowOutDownLeftIcon, ParkingMeterIcon, PlayCircleIcon, SettingsIcon, TvIcon, Download, LogOut } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 interface NavigationItem {
@@ -22,7 +22,7 @@ const navigation: NavigationItem[] = [
     icon: <BotIcon />,
   },
   {
-    name: 'Personal Assitant',
+    name: 'Personal Assistant',
     href: '/dashboard/personal-assistant',
     icon: <BotIcon />,
   },
@@ -44,12 +44,22 @@ const navigation: NavigationItem[] = [
   {
     name: 'Settings',
     href: '/settings',
-    icon: <SettingsIcon/>,
+    icon: <SettingsIcon />,
   },
 ];
 
 export function Sidebar() {
   const { pathname } = useLocation();
+
+  const handleDownloadReport = () => {
+    console.log("Downloading Report...");
+    const link = document.createElement('a');
+    link.href = '/financial_report.pdf'; // Ensure the file is in the "public" folder
+    link.setAttribute('download', 'financial_report.pdf');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <div className="hidden md:flex md:w-64 md:flex-col h-screen bg-[#0f1729] text-white">
@@ -72,6 +82,19 @@ export function Sidebar() {
             </Link>
           ))}
         </nav>
+
+        {/* Report Download Button */}
+        <div className="px-4 pb-4">
+          <button 
+            onClick={handleDownloadReport} 
+            className="flex items-center w-full px-4 py-3 text-sm text-gray-300 rounded-lg hover:bg-gray-700"
+          >
+            <Download />
+            <span className="ml-3">Download Report</span>
+          </button>
+        </div>
+
+        {/* Logout Button */}
         <div className="px-4 pb-8">
           <button className="flex items-center px-4 py-3 text-sm text-gray-300 rounded-lg hover:bg-gray-700 w-full">
             <LogOut />
@@ -83,7 +106,7 @@ export function Sidebar() {
   );
 }
 
-// Icon components for better readability and reusability
+// Dashboard Icon Component
 function DashboardIcon() {
   return (
     <svg
