@@ -90,7 +90,6 @@ const handleSendMessage = async (content: string) => {
                 </div>
                 <div className="flex-1 overflow-auto p-4 md:p-6">
                     <div className="max-w-8xl mx-auto">
-                        <h1 className="text-2xl font-semibold mb-6 hidden md:block">Financial Advisor</h1>
                         <Card className="p-0 overflow-hidden">
                             <div className="bg-[#0f1729] text-white p-4">
                                 <div className="flex items-center">

@@ -21,15 +21,10 @@ const router = createBrowserRouter([
     },
     {
         path: "/dashboard",
-        element: (
+        element:
             <Layout>
-                <Dashboard />,
+                < Dashboard2 />,
             </Layout>
-        )
-    },
-    {
-        path: "/dashboard2",
-        element: < Dashboard2 />,
     },
     {
         path: "/dashboard/advisor",
@@ -66,8 +61,8 @@ const router = createBrowserRouter([
         element: <LoginPage />,
     },
     {
-        path:"*",
-        element: <NotFound/>
+        path: "*",
+        element: <NotFound />
     }
 ]);
 
