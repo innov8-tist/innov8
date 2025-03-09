@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from "react";
 import Button from "./Button";
 
@@ -35,7 +34,7 @@ const CTA: React.FC = () => {
     <section 
       id="contact" 
       ref={ctaRef}
-      className="py-24 px-6 relative overflow-hidden"
+      className="py-24 px-6 relative overflow-hidden bg-finance-light-bg"
     >
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/3 -right-40 w-[500px] h-[500px] bg-finance-blue/10 rounded-full blur-3xl parallax" data-speed="0.5"></div>
@@ -51,7 +50,7 @@ const CTA: React.FC = () => {
           
           <div className="relative z-10">
             <div className="inline-block mb-3 px-3 py-1 rounded-full bg-finance-blue/10 text-finance-accent animate-fade-in">
-              <span className="text-sm font-medium">Get Started Today</span>
+              <span  className="text-sm font-medium">Get Started Today</span>
             </div>
             
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-finance-navy animate-fade-in" style={{ animationDelay: '0.1s' }}>
@@ -63,10 +62,18 @@ const CTA: React.FC = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in" style={{ animationDelay: '0.3s' }}>
-              <Button variant="primary" size="lg">
+              <Button 
+                variant="primary" 
+                size="lg"
+                className="bg-finance-special-blue text-white hover:bg-finance-special-blue/90"
+              >
                 Start Free Trial
               </Button>
-              <Button variant="outline" size="lg">
+              <Button 
+                variant="outline" 
+                size="lg"
+                className="text-finance-navy border-finance-navy hover:bg-finance-navy/10"
+              >
                 Schedule a Demo
               </Button>
             </div>

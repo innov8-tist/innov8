@@ -1,6 +1,6 @@
 'use client';
 
-import { BotIcon, CircleArrowOutDownLeftIcon, GitGraphIcon, LogOut, LogsIcon, ParkingMeterIcon, PlayCircleIcon, SettingsIcon, TvIcon } from 'lucide-react';
+import { BotIcon, CircleArrowOutDownLeftIcon, CircleDollarSignIcon, DollarSign, DollarSignIcon, GitGraphIcon, LogOut, LogsIcon, ParkingMeterIcon, PlayCircleIcon, SettingsIcon, TvIcon } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 interface NavigationItem {
@@ -31,27 +31,6 @@ const navigation: NavigationItem[] = [
     href: '/dashboard/stock-analyzer',
     icon: <ParkingMeterIcon />,
   },
-  {
-    name: 'Payment',
-    href: '/payment',
-    icon: <PlayCircleIcon />,
-  },
-  {
-    name: 'Card',
-    href: '/card',
-    icon: <CircleArrowOutDownLeftIcon />,
-  },
-  {
-    name: 'Insights',
-    href: '/insights',
-    icon: <TvIcon />,
-    badge: 'PRO',
-  },
-  {
-    name: 'Settings',
-    href: '/settings',
-    icon: <SettingsIcon/>,
-  },
 ];
 
 export function Sidebar() {
@@ -61,8 +40,7 @@ export function Sidebar() {
     <div className="hidden md:flex md:w-64 md:flex-col h-screen bg-[#0f1729] text-white">
       <div className="flex flex-col flex-1 overflow-y-auto">
         <div className="flex items-center h-16 flex-shrink-0 px-4">
-          <LogsIcon />
-          <span className="ml-2 text-xl font-semibold">I Love Finance</span>
+          <span className="ml-2 text-xl font-semibold">I ❤️ Finance</span>
         </div>
         <nav className="flex-1 px-4 pb-4 space-y-2">
           {navigation.map((item) => (
