@@ -28,7 +28,7 @@ _Many individuals and businesses struggle with understanding financial data, tra
 _We are developing a fintech website with a clean, user-friendly dashboard that presents key financial data in an accessible format. The platform features an AI-powered chatbot that provides financial insights and customer support. Additionally, the website integrates real-time financial data, stock market analysis, credit score prediction, and loan status detection to enhance user decision-making. Users also receive AI-generated financial reports with insights and recommendations._
 
 ### Demo
-[![Project Demo](https://img.youtube.com/vi/Bl2zzF2MAoA/0.jpg)](https://www.youtube.com/watch?v=Bl2zzF2MAoA)
+[![Project Demo](https://img.youtube.com/vi/HjPIh6R8lDs/0.jpg)](https://www.youtube.com/watch?v=HjPIh6R8lDs)
 
 
 ### Live Project
@@ -116,12 +116,12 @@ uvicorn main:app --host 0.0.0.0 --port 8080 --reload
 - [Reference 2](link)
 
 ### Submission Checklist
-- [ ] Completed all sections of this README
-- [ ] Added project demo video
+- [x] Completed all sections of this README
+- [x] Added project demo video
 - [ ] Provided live project link
 - [x] Ensured all team members are listed
-- [ ] Included setup instructions
-- [ ] Submitted final code to repository
+- [x] Included setup instructions
+- [x] Submitted final code to repository
 
 © Define 3.0 | [Define 3.0](https://www.define3.xyz/)
 """
