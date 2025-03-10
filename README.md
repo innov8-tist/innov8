@@ -45,9 +45,13 @@ _We are developing a fintech website with a clean, user-friendly dashboard that 
 - **Other Tools**: (To be added)
 
 ### Key Features
-- **AI-Powered Financial Chatbot** – Provides financial insights, answers FAQs, and assists users with fintech-related queries using RAG-based AI.
-- **Real-Time Financial Dashboard** – Displays key financial data, stock market trends, credit score predictions, and loan status detection in a user-friendly interface.
-- **AI-Generated Financial Reports** – Delivers monthly PDF reports with personalized financial insights, summaries, and AI-driven recommendations.
+- **AI-Powered Financial Insights** – The **Dashboard** and **Financial Advisor** provide **real-time financial insights**, analytics, and expert guidance. Users can track financial health, analyze trends, and make data-driven decisions with AI support.  
+
+- **Personalized AI Assistant** – The **Personal Assistant** is **RAG-based**, meaning it understands the user’s financial history and offers tailored advice. It helps users plan investments, manage expenses, and make informed financial choices.  
+
+- **Market & Risk Analysis** – The **Stock Analysis** feature uses **AI agents** to evaluate market trends, while **Loan Status & Credit Score Prediction** helps users assess financial risks and loan     eligibility. These tools improve financial planning.  
+
+ - **Automated Reports & Security** – The platform **automates financial report generation**, offering **monthly AI-driven reports** with insights and recommendations. **Fraud Detection** ensures financial security by identifying suspicious activities using AI.
 
 ## Setup Instructions
 
